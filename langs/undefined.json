@@ -1,14 +1,3 @@
 {
-  "name": "english",
-  "LOADING": "Loading...",
-  "COOLDOWN": "You're on cooldown, try again in {0} second",
-  "NO_COOLDOWN": "Cooldown does not exist on command {0}",
-  "OWNER_COMMAND": "You can't run this command.",
-  "NO_PERMS": "You do not have permissions to run this command.\nRequired Perms: {0}",
-  "NO_BOT_PERMS": "I do not have permissions to run this command.\nRequired Perms: {0}",
-  "CMD_GAY_SELF": "You are {0}% gay, <@{1}>",
-  "CMD_GAY_USER": " <@{1}> is {0}% gay",
-  "CMD_SEX": "Reject sex, return to virgin",
-  "CMD_MATH": "sike",
-  "CMD_DICE": "You rolled a {0}"
+  "name": "undefined"
 }
