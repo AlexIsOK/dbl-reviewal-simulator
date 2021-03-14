@@ -13,7 +13,7 @@ module.exports.options = {
     permissions: [],
     botPermissions: [],
     category: 'misc',
-    cooldown: 9e3
+    cooldown: 17e3
   }
 }
 

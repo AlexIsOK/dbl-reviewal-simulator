@@ -29,19 +29,19 @@ module.exports = {
       const user = ctx.worker.users.get((ctx.args[0] || '').replace(/[<@!>]/g, ''))
       if (user) {
         ctx.embed
-        .description(getLang('CMD_GAY_USER', howGay, user.id))
-        .color(GREEN)
-        .send(true);
+          .description(getLang('CMD_GAY_USER', howGay, user.id))
+          .color(GREEN)
+          .send(true);
         return;
       }
       ctx.embed
-      .description(getLang('CMD_GAY_SELF', howGay, ctx.message.author.id))
-      .color(GREEN)
-      .send(true);
+        .description(getLang('CMD_GAY_SELF', howGay, ctx.message.author.id))
+        .color(GREEN)
+        .send(true);
       return;
     }
   },
-  
+
   say: {
     command: 'say',
     usage: 'say <text>',
@@ -54,7 +54,7 @@ module.exports = {
       ctx.send(ctx.args.join(' '));
     }
   },
-  
+
   sex: {
     command: 'sex',
     usage: 'sex <user>',
@@ -65,7 +65,7 @@ module.exports = {
       ctx.reply(getLang('CMD_SEX'))
     }
   },
-  
+
   math: {
     command: 'math',
     usage: 'math <equation>',
@@ -79,7 +79,7 @@ module.exports = {
       }, 1234)
     }
   },
-  
+
   dice: {
     command: 'dice',
     aliases: ['roll'],
@@ -92,7 +92,7 @@ module.exports = {
       ctx.reply(getLang('CMD_DICE', roll))
     }
   },
-  
+
   yesno: {
     command: 'y-n',
     aliases: ['yesno', 'yes-no'],
@@ -106,7 +106,7 @@ module.exports = {
       ctx.reply(getLang(random ? "CMD_YESNO_YES" : "CMD_YESNO_NO"))
     }
   },
-  
+
   frog: {
     command: 'frog',
     aliases: ['forg'],
@@ -124,7 +124,7 @@ module.exports = {
       ctx.reply(`https://frogs.media/${json.name}`)
     }
   },
-  
+
   pp: {
     command: 'pp',
     aliases: ['penis', 'dick'],
@@ -135,12 +135,12 @@ module.exports = {
       const ppLength = Math.floor(Math.random() * 13);
       const user = ctx.worker.users.get((ctx.args[0] || '').replace(/[<@!>]/g, '')) || ctx.message.author;
       ctx.embed
-      .description(getLang('CMD_PP_LENGTH', user.id, '='.repeat(ppLength)))
-      .color(GREEN)
-      .send()
+        .description(getLang('CMD_PP_LENGTH', user.id, '='.repeat(ppLength)))
+        .color(GREEN)
+        .send()
     }
   },
-  
+
   restart: {
     command: 'restart',
     aliases: ['r'],
@@ -150,28 +150,28 @@ module.exports = {
     category: 'fun',
     exec: async (ctx) => {
       ctx.embed
-      .description(getLang('CMD_RESTART_SHUTDOWN'))
-      .color(ORANGE)
-      .send()
-      
+        .description(getLang('CMD_RESTART_SHUTDOWN'))
+        .color(ORANGE)
+        .send()
+
       try {
         ctx.worker.setStatus('watching', 'shutdown', 'dnd');
-        
+
         await wait(3000)
         ctx.worker.setStatus('watching', 'startup', 'idle');
-        
+
         await wait(3000)
         ctx.worker.setStatus('watching', ctx.worker.guilds.size + ' guilds', 'online')
-        
+
         await wait(1000)
         ctx.embed
-        .description(getLang('CMD_RESTART_STARTUP'))
-        .color(GREEN)
-        .send()
+          .description(getLang('CMD_RESTART_STARTUP'))
+          .color(GREEN)
+          .send()
       } catch (err) { }
     }
   },
-  
+
   shutdown: {
     command: 'shutdown',
     aliases: ['s'],

@@ -7,6 +7,6 @@ const { APIMessage } = require('discord-api-types')
 module.exports = {
   event: 'MESSAGE_CREATE',
   exec: (worker, message) => {
-    
+
   }
 }

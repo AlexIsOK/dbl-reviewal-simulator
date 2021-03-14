@@ -11,6 +11,7 @@ module.exports = {
     usage: 'help [command]',
     description: 'Get a list of all commands, or help on a command',
     permissions: ['files'],
+    cooldown: 1000 * 60 * 45,
     exec: async (ctx) => {
       const guildPrefix = '@';
 
