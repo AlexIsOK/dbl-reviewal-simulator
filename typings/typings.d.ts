@@ -12,8 +12,4 @@ declare module 'discord-rose/dist/typings/lib' {
     disabled?: boolean;
     cooldown?: number;
   }
-
-  interface CommandContext {
-    invokeCooldown: () => void;
-  }
 }
