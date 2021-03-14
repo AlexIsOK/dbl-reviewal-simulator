@@ -51,4 +51,20 @@ function getAvatar(user, type = 'png', size = 128) {
   return `https://cdn.discordapp.com/embed/avatars/${BigInt(user.discriminator) % BigInt(5)}.png`;
 }
 
-module.exports = { formatTime, NonFatalError, getAvatar }
+/**
+ * Get the lang response
+ */
+function getLang(type, ...args) {
+  const langs = [require('./langs/en-us.json'), require('./langs/es-es.json'), require('./langs/undefined.json')];
+  const lang = langs[Math.floor(Math.random() * langs.length)]
+  if (!lang[type]) throw new Error(`Language Error: "${type}" not set for ${lang.name}`)
+  return formatString(lang[type], ...args)
+}
+
+function formatString(string, ...args) {
+  return string.replace(/{(\d+)}/g, function (match, number) {
+    return typeof args[number] != 'undefined' ? args[number] : match
+  });
+}
+
+module.exports = { formatTime, NonFatalError, getAvatar, getLang }

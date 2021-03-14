@@ -14,3 +14,8 @@
 ## COMMANDS:
 - abc -> type out the abcs for a prize
 - 123 -> type out 1-69 for a prize
+
+## Command Examples:
+- automod
+- join-leave messages
+- say command

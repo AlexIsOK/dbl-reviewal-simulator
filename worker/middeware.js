@@ -1,4 +1,4 @@
-const { formatTime } = require("../utils");
+const { formatTime, getLang } = require("../utils");
 
 /**
  * The cooldown middleware, which is pretty pogging
@@ -9,7 +9,7 @@ module.exports.cooldown = () => {
 
   return (ctx) => {
     if (!ctx.command.cooldown) {
-      throw new Error(`Cooldown does not exist on command ${ctx.command.command}`);
+      throw new Error(getLang('NO_COOLDOWN', ctx.command.command));
     }
 
     const id = ctx.guild.id || 'dm';
@@ -30,7 +30,7 @@ module.exports.cooldown = () => {
         badPeople.splice(badPeople.indexOf(ctx.message.author.id))
       })
 
-      throw new Error(`You're on cooldown, try again in ${formatTime(timeRemaining)}`);
+      throw new Error(getLang('COOLDOWN', formatTime(timeRemaining)));
     }
 
     cooldowns.set(id, {
@@ -39,7 +39,7 @@ module.exports.cooldown = () => {
         cooldowns.delete(id);
       }, ctx.command.cooldown)
     });
-    
+
     return true;
   };
 };
@@ -55,7 +55,7 @@ module.exports.permissions = () => {
     const hasPerms = perms.every((perm) => ctx.hasPerms(perm));
     if (hasPerms) return true;
 
-    throw new Error(`You do not have permissions to run this command.\nRequired Perms: ${ctx.command.permissions.join(', ')}`)
+    throw new Error(getLang('NO_PERMS', ctx.command.permissions.join(', ')))
   };
 };
 
@@ -70,7 +70,7 @@ module.exports.botPermissions = () => {
     const hasPerms = perms.every((perm) => ctx.hasPerms(perm));
     if (hasPerms) return true;
 
-    throw new Error(`I do not have permissions to run this command.\nRequired Perms: ${ctx.command.permissions.join(', ')}`)
+    throw new Error(getLang('NO_BOT_PERMS', ctx.command.permissions.join(', ')))
   };
 };
 
@@ -79,7 +79,7 @@ module.exports.botPermissions = () => {
  */
 module.exports.owner = () => {
   return (ctx) => {
-    if (ctx.command.owner) throw new Error('You can\'t run this command.')
+    if (ctx.command.owner) throw new Error(getLang('OWNER_COMMAND'))
     return true;
   };
 }
