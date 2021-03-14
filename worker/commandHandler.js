@@ -19,8 +19,8 @@ module.exports.options = {
 
 module.exports.error = (ctx, err) => {
   ctx.embed
-    .author(err.message, getAvatar(ctx.message.author, 'gif', 128))
-    .color(0xFF0000)
+    .author(err.message, getAvatar(ctx.message.author, null, null))
+    .color(RED)
     .send(true)
     .catch(() => { });
 }

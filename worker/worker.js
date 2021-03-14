@@ -1,3 +1,8 @@
+global.GREEN = 0x2ECC71
+global.RED = 0xFF0000
+global.PURPLE = 0xb649eb
+global.ORANGE = 0xFFA500
+
 const { Worker } = require('discord-rose');
 const { readdirSync } = require('fs');
 const { resolve } = require('path');

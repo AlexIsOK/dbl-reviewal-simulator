@@ -14,8 +14,11 @@
 ## COMMANDS:
 - abc -> type out the abcs for a prize
 - 123 -> type out 1-69 for a prize
+- FORCE SETUP
 
 ## Command Examples:
 - automod
 - join-leave messages
 - say command
+- long names
+- multiple parts of commands

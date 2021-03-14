@@ -46,8 +46,8 @@ class NonFatalError extends Error {
  * @param {string} type The type of image
  * @param {number} size The size of the image
  */
-function getAvatar(user, type = 'png', size = 128) {
-  if (user.avatar) return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${type}?size=${size}`;
+function getAvatar(user, type, size) {
+  if (user.avatar) return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}${type ? '.' + type : ''}${size ? '?size=' + size : ''}`;
   return `https://cdn.discordapp.com/embed/avatars/${BigInt(user.discriminator) % BigInt(5)}.png`;
 }
 
@@ -55,16 +55,29 @@ function getAvatar(user, type = 'png', size = 128) {
  * Get the lang response
  */
 function getLang(type, ...args) {
-  const langs = [require('./langs/en-us.json'), require('./langs/es-es.json'), require('./langs/undefined.json')];
+  const langs = [require('./langs/en-us.json')];
   const lang = langs[Math.floor(Math.random() * langs.length)]
   if (!lang[type]) throw new Error(`Language Error: "${type}" not set for ${lang.name}`)
   return formatString(lang[type], ...args)
 }
 
+/**
+ * 
+ * @param {string} string  the string
+ * @param  {...string} args 
+ */
 function formatString(string, ...args) {
   return string.replace(/{(\d+)}/g, function (match, number) {
     return typeof args[number] != 'undefined' ? args[number] : match
   });
 }
 
-module.exports = { formatTime, NonFatalError, getAvatar, getLang }
+/**
+ * Wait function
+ * @param {number} time The time, in miliseconds to wait
+ */
+function wait(time) {
+  return new Promise((r) => setTimeout(() => r(), time))
+}
+
+module.exports = { formatTime, NonFatalError, getAvatar, getLang, wait }

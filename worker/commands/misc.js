@@ -1,5 +1,5 @@
 const { CommandOptions } = require("discord-rose/dist/typings/lib");
-const { NonFatalError } = require("../../utils");
+const { NonFatalError, getLang } = require("../../utils");
 
 /**
  * Commands export
@@ -24,7 +24,7 @@ module.exports = {
             .author(ctx.message.author.username + ' | ' + ctx.command.name, url)
             .description(`\`Command\`: ${command.command}\n\`Usage\`: ${guildPrefix}${command.usage}\n${command.aliases ? `\`Aliases\`: ${command.aliases.join(', ')}\n` : ''}${command.permissions ? '\`Permissions:\` ' + command.permissions.join(', ') + '\n' : ''}\`Description\`: ${command.description}`)
             .footer('Developed by MILLION#1321')
-            // .color()
+            .color(PURPLE)
             .timestamp()
             .send(true)
             .catch(() => { });
@@ -40,7 +40,7 @@ module.exports = {
           .author(ctx.message.author.username + ' | ' + ctx.command.name, url)
           .title('Commands')
           .footer('Developed by MILLION#1321')
-          // .color(ctx.worker.colors.PURPLE)
+          .color(PURPLE)
           .timestamp();
 
         categories.forEach((cat) => {
@@ -57,5 +57,15 @@ module.exports = {
     }
   },
 
-  
+  test: {
+    command: 'test',
+    usage: 'test',
+    description: 'test',
+    exec: async (ctx) => {
+      ctx.reply('test');
+      ctx.send('test');
+      ctx.embed.title('test').color(RED).send()
+      ctx.worker.api.messages.react(ctx.channel.id, ctx.message.id, '🧪');
+    }
+  }
 }
