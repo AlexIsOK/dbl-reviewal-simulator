@@ -1,5 +1,5 @@
 const { CommandOptions } = require("discord-rose/dist/typings/lib");
-const { NonFatalError, getLang } = require("../../utils");
+const { NonFatalError, getLang, getAvatar } = require("../../utils");
 
 /**
  * Commands export
@@ -12,10 +12,10 @@ module.exports = {
     description: 'Get a list of all commands, or help on a command',
     permissions: ['files'],
     exec: async (ctx) => {
-      const guildPrefix = '!';
+      const guildPrefix = '@';
 
       const cmd = ctx.args[0];
-      const url = `https://cdn.discordapp.com/avatars/${ctx.message.author.id}/${ctx.message.author.avatar}.png?size=128`;
+      const url = getAvatar(ctx.message.author);
 
       if (cmd) {
         const command = ctx.worker.commands.commands.find(e => e.command === cmd);
@@ -62,10 +62,16 @@ module.exports = {
     usage: 'test',
     description: 'test',
     exec: async (ctx) => {
-      ctx.reply('test');
-      ctx.send('test');
-      ctx.embed.title('test').color(RED).send()
       ctx.worker.api.messages.react(ctx.channel.id, ctx.message.id, '🧪');
+    }
+  },
+
+  extreme: {
+    command: 'extreme',
+    usage: 'extreme',
+    description: 'extreme',
+    exec: (ctx) => {
+      ctx.send(getLang('CMD_EXTREME'))
     }
   }
 }

@@ -29,3 +29,11 @@ for (const file of commandFiles) {
     worker.commands.add(command)
   }
 }
+
+const eventFiles = readdirSync(resolve(__dirname, 'events'), { withFileTypes: true })
+  .filter(f => f.isFile() && f.name.endsWith('.js'))
+
+for (const file of eventFiles) {
+  const event = require(resolve(__dirname, 'events', file.name))
+  worker.on(event.event, event.exec.bind(event, worker))
+}

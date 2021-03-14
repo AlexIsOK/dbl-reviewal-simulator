@@ -4,6 +4,7 @@
   "description": "a bot to annoy top.gg bot reviewers",
   "main": "index.js",
   "dependencies": {
+    "discord-api-types": "^0.12.1",
     "discord-rose": "^1.0.1",
     "dotenv": "^8.2.0"
   },

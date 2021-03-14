@@ -1,7 +1,7 @@
 const { getAvatar } = require("../utils");
 
 module.exports.setPrefix = (msg) => {
-  return '!'
+  return '#'
 }
 
 module.exports.options = {
