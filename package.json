@@ -1,0 +1,27 @@
+{
+  "name": "dbl-reviewal-simulator",
+  "version": "0.0.1",
+  "description": "a bot to annoy top.gg bot reviewers",
+  "main": "index.js",
+  "dependencies": {
+    "discord-rose": "^1.0.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Million900o/dbl-reviewal-simulator.git"
+  },
+  "keywords": [
+    "top.gg"
+  ],
+  "author": "MILLION",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Million900o/dbl-reviewal-simulator/issues"
+  },
+  "homepage": "https://github.com/Million900o/dbl-reviewal-simulator#readme"
+}
