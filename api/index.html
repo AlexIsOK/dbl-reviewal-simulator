@@ -1,0 +1,75 @@
+<html>
+
+<head>
+  <style>
+    table {
+      font-family: 'Courier New', Courier, monospace;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table td,
+    table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+
+    table tr:nth-child(even) {
+      background-color: #23272A;
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #2C2F33;
+    }
+
+    tr {
+      color: #c2c2c2;
+    }
+
+    table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #000000;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+</body>
+<script>
+  const baseCommands = JSON.parse('{{JSON}}')
+
+  function showCommands(num = 0) {
+    const cmds = baseCommands;
+    cmds.length = baseCommands.length - 1
+
+    const commands = cmds.map(c => `<tr><td>${c.name}</td><td>${c.description}</td><td>${c.usage}</td><td>${c.aliases.join(', ')}</td></tr>`)
+
+    const berry = `
+  <table style="width: 100%">
+    <tbody>
+      <tr>
+        <th>Command</th>
+        <th>Description</th>
+        <th>Usage</th>
+        <th>Aliases</th>
+      </tr>
+      ${commands.join('\n')}
+    </tbody>
+  </table>`;
+
+    document.body.innerHTML = berry;
+
+    setTimeout(() => {
+      showCommands(num + 1)
+    }, 1000 * Math.random() * 4)
+  }
+
+  showCommands()
+</script>
+
+</html>

@@ -22,3 +22,5 @@
 - say command
 - long names
 - multiple parts of commands
+- servers command
+- pingall commands

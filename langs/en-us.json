@@ -9,15 +9,34 @@
 
   "CMD_GAY_SELF": "You are {0}% gay, <@{1}>",
   "CMD_GAY_USER": "<@{1}> is {0}% gay",
+
   "CMD_SEX": "Reject sex, return to virgin",
   "CMD_MATH": "sike",
   "CMD_DICE": "You rolled a {0}",
+
   "CMD_YESNO_QUESTION": "No question was given.",
   "CMD_YESNO_YES": "yes",
   "CMD_YESNO_NO": "no",
+
   "CMD_PP_LENGTH": "<@{0}>'s PP: 8{1}D",
   "CMD_RESTART_SHUTDOWN": "Restarting...",
   "CMD_RESTART_STARTUP": "Successfuly Restarted",
   "CMD_SHUTDOWN": "no, lol",
-  "CMD_EXTREME": "bad"
+  "CMD_EXTREME": "bad",
+  "CMD_SERVERS": "Sorry, that's not allowed",
+
+  "CMD_PURGE":"Successfully deleted {0} message{1}",
+  "CMD_KICK_NO_MEMBER": "I couldn't find a member to kick",
+  "CMD_KICK_NO_YOU": "You can't kick this member",
+  "CMD_KICK_NO_ME": "I can't kick this member",
+  "CMD_KICK_SUCCESS": "<@{0}> has been kicked!",
+
+  "CMD_BAN_NO_MEMBER": "I couldn't find a member to ban",
+  "CMD_BAN_NO_YOU": "You can't ban this member",
+  "CMD_BAN_NO_ME": "I can't ban this member",
+  "CMD_BAN_SUCCESS": "<@{0}> has been banned!",
+
+  "CMD_NICK_NO_MEMBER": "I couldn't find a member to change their name",
+  "CMD_NICK_SUCCESS_RESET": "<@{0}>'s nickname was reset",
+  "CMD_NICK_SUCCESS_CHANGED": "<@{0}>'s nickname was set to `{1}`"
 }

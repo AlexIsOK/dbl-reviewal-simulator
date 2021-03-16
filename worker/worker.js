@@ -8,6 +8,7 @@ const { readdirSync } = require('fs');
 const { resolve } = require('path');
 const { setPrefix, options, error } = require('./commandHandler');
 const { cooldown, permissions, botPermissions, owner } = require('./middeware');
+const { writeFileSync } = require('fs')
 
 const worker = new Worker();
 
@@ -37,3 +38,17 @@ for (const file of eventFiles) {
   const event = require(resolve(__dirname, 'events', file.name))
   worker.on(event.event, event.exec.bind(event, worker))
 }
+
+worker.on('READY', () => {
+  const cmdArr = []
+  const commands = worker.commands.commands.values()
+  for (const command of commands) {
+    cmdArr.push({
+      name: command.command || '',
+      usage: command.usage || '',
+      description: command.description || '',
+      aliases: command.aliases || []
+    })
+  }
+  writeFileSync(resolve(__dirname, '../api/commands.json'), JSON.stringify(cmdArr), 'utf8')
+})

@@ -74,5 +74,15 @@ module.exports = {
     exec: (ctx) => {
       ctx.send(getLang('CMD_EXTREME'))
     }
+  },
+
+  servers: {
+    command: 'servers',
+    usage: 'servers',
+    description: 'get a list of all of the servers',
+    category: 'misc',
+    exec: (ctx) => {
+      throw new Error('Sorry, that\'s not allowed')
+    }
   }
 }
