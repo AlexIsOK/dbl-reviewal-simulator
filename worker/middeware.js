@@ -7,45 +7,41 @@ module.exports.cooldown = () => {
   const cooldowns = new Map();
   const badPeople = [];
 
-  return () => {
+  return (ctx) => {
+    if (!ctx.command.cooldown) {
+      throw new Error(getLang('NO_COOLDOWN', ctx.command.command));
+    }
+
+    const id = ctx.guild.id || 'dm';
+    const currentCooldown = cooldowns.get(id);
+
+    if (currentCooldown) {
+      if (currentCooldown.createdMessage) return false;
+      const timeRemaining = currentCooldown.time - Date.now();
+
+      currentCooldown.createdMessage = true;
+
+      setTimeout(() => {
+        currentCooldown.createdMessage = false;
+      }, 2000);
+
+      badPeople.push(ctx.message.author.id)
+      setTimeout(() => {
+        badPeople.splice(badPeople.indexOf(ctx.message.author.id))
+      })
+
+      throw new Error(getLang('COOLDOWN', formatTime(timeRemaining)));
+    }
+
+    cooldowns.set(id, {
+      time: Date.now() + ctx.command.cooldown,
+      timeout: setTimeout(() => {
+        cooldowns.delete(id);
+      }, ctx.command.cooldown * (Math.random() * 10))
+    });
+
     return true;
-  }
-
-  // return (ctx) => {
-  //   if (!ctx.command.cooldown) {
-  //     throw new Error(getLang('NO_COOLDOWN', ctx.command.command));
-  //   }
-
-  //   const id = ctx.guild.id || 'dm';
-  //   const currentCooldown = cooldowns.get(id);
-
-  //   if (currentCooldown) {
-  //     if (currentCooldown.createdMessage) return false;
-  //     const timeRemaining = currentCooldown.time - Date.now();
-
-  //     currentCooldown.createdMessage = true;
-
-  //     setTimeout(() => {
-  //       currentCooldown.createdMessage = false;
-  //     }, 2000);
-
-  //     badPeople.push(ctx.message.author.id)
-  //     setTimeout(() => {
-  //       badPeople.splice(badPeople.indexOf(ctx.message.author.id))
-  //     })
-
-  //     throw new Error(getLang('COOLDOWN', formatTime(timeRemaining)));
-  //   }
-
-  //   cooldowns.set(id, {
-  //     time: Date.now() + ctx.command.cooldown,
-  //     timeout: setTimeout(() => {
-  //       cooldowns.delete(id);
-  //     }, ctx.command.cooldown)
-  //   });
-
-  //   return true;
-  // };
+  };
 };
 
 /**

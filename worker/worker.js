@@ -6,14 +6,14 @@ global.ORANGE = 0xFFA500
 const { Worker } = require('discord-rose');
 const { readdirSync } = require('fs');
 const { resolve } = require('path');
-const { setPrefix, options, error } = require('./commandHandler');
+const { options, error, prefix } = require('./commandHandler');
 const { cooldown, permissions, botPermissions, owner } = require('./middeware');
 const { writeFileSync } = require('fs')
 
 const worker = new Worker();
 
 worker.commands
-  .setPrefix(setPrefix)
+  .setPrefix(prefix)
   .options(options)
   .error(error)
   .middleware(cooldown())

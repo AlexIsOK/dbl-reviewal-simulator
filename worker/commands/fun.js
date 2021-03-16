@@ -191,5 +191,22 @@ module.exports = {
     exec: (ctx) => {
       ctx.reply(',', true)
     }
+  },
+
+  pingall: {
+    command: 'pingall',
+    usage: 'pingall',
+    description: 'Ping 90 users at the same time',
+    category: 'fun',
+    permissions: ['administrator'],
+    exec: async (ctx) => {
+      const members = await ctx.worker.api.members.getMany(ctx.guild.id, { limit: 90 })
+      let string = ``;
+      members.forEach(member => {
+        if (member.user.bot) return;
+        string+=`<@!${member.user.id}>`
+      })
+      await ctx.send(string)
+    }
   }
 }

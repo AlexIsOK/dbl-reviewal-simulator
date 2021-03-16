@@ -1,11 +1,11 @@
 ## Bot
-- WORKING MATH COMMAND
+- [DONE] WORKING MATH COMMAND
 - ~150 commands
-- user needs unrelated perms
-- prefix: # | @ | :
-- responses in different languages
+- [WIP] user needs unrelated perms
+- [WIP] prefix: # | @ | :
+- [WIP] responses in different languages
 - clone? (use embeds from other clones to confuse them)
-- make it have an annoying cooldown
+- [WIP] make it have an annoying cooldown
 
 ## PAGE:
 - all one line
@@ -19,8 +19,8 @@
 ## Command Examples:
 - automod
 - join-leave messages
-- say command
+- [DONE] say command
 - long names
 - multiple parts of commands
-- servers command
-- pingall commands
+- [DONE] servers command
+- [DONE] pingall commands
