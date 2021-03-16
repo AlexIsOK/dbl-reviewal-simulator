@@ -24,17 +24,17 @@ module.exports = {
     description: 'get how gay someone is',
     permissions: ['emojis'],
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       const howGay = Math.floor(Math.random() * 100);
       const user = ctx.worker.users.get((ctx.args[0] || '').replace(/[<@!>]/g, ''))
       if (user) {
-        ctx.embed
+        await ctx.embed
           .description(getLang('CMD_GAY_USER', howGay, user.id))
           .color(GREEN)
           .send(true);
         return;
       }
-      ctx.embed
+      await ctx.embed
         .description(getLang('CMD_GAY_SELF', howGay, ctx.message.author.id))
         .color(GREEN)
         .send(true);
@@ -51,7 +51,7 @@ module.exports = {
     category: 'fun',
     exec: async (ctx) => {
       await ctx.delete();
-      ctx.send(ctx.args.join(' '));
+      await ctx.send(ctx.args.join(' '));
     }
   },
 
@@ -62,7 +62,7 @@ module.exports = {
     permissions: ['administrator'],
     category: 'fun',
     exec: async (ctx) => {
-      ctx.reply(getLang('CMD_SEX'))
+      await ctx.reply(getLang('CMD_SEX'))
     }
   },
 
@@ -73,10 +73,9 @@ module.exports = {
     category: 'fun',
     exec: async (ctx) => {
       const msg = await ctx.send(getLang('LOADING'));
-      setTimeout(async () => {
-        await ctx.worker.api.messages.delete(msg.channel_id, msg.id)
-        ctx.reply(getLang('CMD_MATH'))
-      }, 1234)
+      await wait(1234);
+      await ctx.worker.api.messages.delete(msg.channel_id, msg.id)
+      await ctx.reply(getLang('CMD_MATH'))
     }
   },
 
@@ -86,10 +85,10 @@ module.exports = {
     usage: 'dice [sides]',
     description: 'roll a X sided dice',
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       const mult = ctx.args[0] ? parseInt(ctx.args[0]) : 6
       const roll = Math.floor(Math.random() * mult)
-      ctx.reply(getLang('CMD_DICE', roll))
+      await ctx.reply(getLang('CMD_DICE', roll))
     }
   },
 
@@ -99,11 +98,11 @@ module.exports = {
     usage: 'y-n <question>',
     description: 'Yes or no?',
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       const question = ctx.args.join(' ');
       if (!question) throw new Error(getLang('CMD_YESNO_QUESTION'))
       const random = Math.random() > .66;
-      ctx.reply(getLang(random ? "CMD_YESNO_YES" : "CMD_YESNO_NO"))
+      await ctx.reply(getLang(random ? "CMD_YESNO_YES" : "CMD_YESNO_NO"))
     }
   },
 
@@ -121,7 +120,7 @@ module.exports = {
       }
       const response = await fetch('https://frogs.media/api/random')
       const json = await response.json()
-      ctx.reply(`https://frogs.media/${json.name}`)
+      await ctx.reply(`https://frogs.media/${json.name}`)
     }
   },
 
@@ -131,10 +130,10 @@ module.exports = {
     usage: 'pp [user]',
     description: 'How long is your pp?',
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       const ppLength = Math.floor(Math.random() * 13);
       const user = ctx.worker.users.get((ctx.args[0] || '').replace(/[<@!>]/g, '')) || ctx.message.author;
-      ctx.embed
+      await ctx.embed
         .description(getLang('CMD_PP_LENGTH', user.id, '='.repeat(ppLength)))
         .color(GREEN)
         .send()
@@ -149,7 +148,7 @@ module.exports = {
     owner: true,
     category: 'fun',
     exec: async (ctx) => {
-      ctx.embed
+      await ctx.embed
         .description(getLang('CMD_RESTART_SHUTDOWN'))
         .color(ORANGE)
         .send()
@@ -164,7 +163,7 @@ module.exports = {
         ctx.worker.setStatus('watching', ctx.worker.guilds.size + ' guilds', 'online')
 
         await wait(1000)
-        ctx.embed
+        await ctx.embed
           .description(getLang('CMD_RESTART_STARTUP'))
           .color(GREEN)
           .send()
@@ -179,7 +178,7 @@ module.exports = {
     description: 'shutdown the bot',
     category: 'fun',
     exec: (ctx) => {
-      ctx.reply(getLang('CMD_SHUTDOWN'))
+      await ctx.reply(getLang('CMD_SHUTDOWN'))
     }
   },
 
@@ -189,7 +188,7 @@ module.exports = {
     description: 'Ping the nearest weeb',
     category: 'fun',
     exec: (ctx) => {
-      ctx.reply(',', true)
+      await ctx.reply(',', true)
     }
   },
 
@@ -204,7 +203,7 @@ module.exports = {
       let string = ``;
       members.forEach(member => {
         if (member.user.bot) return;
-        string+=`<@!${member.user.id}>`
+        string += `<@!${member.user.id}>`
       })
       await ctx.send(string)
     }
