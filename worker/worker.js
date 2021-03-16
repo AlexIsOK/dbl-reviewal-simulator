@@ -13,7 +13,7 @@ const { writeFileSync } = require('fs')
 const worker = new Worker();
 
 worker.commands
-  .setPrefix(prefix)
+  .prefix(prefix)
   .options(options)
   .error(error)
   .middleware(cooldown())

@@ -177,7 +177,7 @@ module.exports = {
     usage: 'shutdown [time]',
     description: 'shutdown the bot',
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       await ctx.reply(getLang('CMD_SHUTDOWN'))
     }
   },
@@ -187,7 +187,7 @@ module.exports = {
     usage: 'weeb',
     description: 'Ping the nearest weeb',
     category: 'fun',
-    exec: (ctx) => {
+    exec: async (ctx) => {
       await ctx.reply(',', true)
     }
   },
