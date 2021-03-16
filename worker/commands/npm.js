@@ -5,8 +5,4 @@ const { NonFatalError, getLang, getAvatar } = require("../../utils");
  * Commands export
  * @type {{[key: string]: CommandOptions}}
  */
-module.exports = {
-  // package: {
-    
-  // }
-}
+module.exports = {}

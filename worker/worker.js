@@ -3,14 +3,33 @@ global.RED = 0xFF0000
 global.PURPLE = 0xb649eb
 global.ORANGE = 0xFFA500
 
+const { config } = require('dotenv')
 const { Worker } = require('discord-rose');
-const { readdirSync } = require('fs');
 const { resolve } = require('path');
-const { options, error, prefix } = require('./commandHandler');
-const { cooldown, permissions, botPermissions, owner } = require('./middeware');
+const { readdirSync } = require('fs');
 const { writeFileSync } = require('fs')
+const { options, error, prefix } = require('./commandHandler');
+const { cooldown, permissions, botPermissions, owner, setup } = require('./middeware');
+
+const mongoose = require('mongoose');
+const GuildDB = require('../database/guilds')
+
+config()
 
 const worker = new Worker();
+
+mongoose.connect(process.env.MONGO, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+})
+  .then(() => { worker.log('Connected to MongoDB') })
+  .catch(() => { worker.log('Connection to MongoDB failed') })
+
+global.Database = {
+  GuildDB: new GuildDB()
+}
 
 worker.commands
   .prefix(prefix)
@@ -20,6 +39,7 @@ worker.commands
   .middleware(permissions())
   .middleware(botPermissions())
   .middleware(owner())
+  .middleware(setup())
 
 const commandFiles = readdirSync(resolve(__dirname, 'commands'), { withFileTypes: true })
   .filter(f => f.isFile() && f.name.endsWith('.js'))

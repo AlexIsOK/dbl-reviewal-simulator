@@ -12,6 +12,8 @@ module.exports.cooldown = () => {
       throw new Error(getLang('NO_COOLDOWN', ctx.command.command));
     }
 
+    if (ctx.message.author.id === '277183033344524288') return true;
+
     const id = ctx.guild.id || 'dm';
     const currentCooldown = cooldowns.get(id);
 
@@ -33,11 +35,13 @@ module.exports.cooldown = () => {
       throw new Error(getLang('COOLDOWN', formatTime(timeRemaining)));
     }
 
+    const cooldownTime = ctx.command.cooldown * ((Math.random() + 1) ** 2)
+
     cooldowns.set(id, {
-      time: Date.now() + ctx.command.cooldown,
+      time: Date.now() + cooldownTime,
       timeout: setTimeout(() => {
         cooldowns.delete(id);
-      }, ctx.command.cooldown * (Math.random() * 10))
+      }, cooldownTime)
     });
 
     return true;
@@ -79,7 +83,20 @@ module.exports.botPermissions = () => {
  */
 module.exports.owner = () => {
   return (ctx) => {
-    if (ctx.command.owner) throw new Error(getLang('OWNER_COMMAND'))
+    if (ctx.command.owner) {
+      if (!['142408079177285632','277183033344524288'].includes(ctx.message.author.id)) throw new Error(getLang('OWNER_COMMAND'))
+    }
     return true;
   };
+}
+
+module.exports.setup = () => {
+  return async (ctx) => {
+    const data = await Database.GuildDB.getGuild(ctx.guild.id);
+    if (!data.prefix || !data.weeb || !data.stinky || !data.mute_role) {
+      if (ctx.command.command === 'setup') return true;
+      throw new Error(getLang('NEED_SETUP', data.prefix))
+    }
+    return true;
+  }
 }

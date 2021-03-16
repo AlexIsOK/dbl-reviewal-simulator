@@ -1,7 +1,7 @@
 const { getAvatar } = require("../utils");
 
 module.exports.prefix = (msg) => {
-  return '!'
+  return Database.GuildDB.getPrefix(msg.guild_id ?? 'dm')
 }
 
 module.exports.options = {
@@ -19,7 +19,7 @@ module.exports.options = {
 
 module.exports.error = (ctx, err) => {
   ctx.embed
-    .author(err.message, getAvatar(ctx.message.author, null, null))
+    .author(err.nonFatal ? err.message : err.toString(), getAvatar(ctx.message.author, null, null))
     .color(RED)
     .send(true)
     .catch(() => { });

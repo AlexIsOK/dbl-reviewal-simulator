@@ -17,16 +17,60 @@ module.exports = class GuildDB {
 
     return {
       id,
-      prefix: '@'
+      prefix: '@',
+      weeb: null,
+      stinky: null,
+      mute_role: null
     }
   }
 
-  async createGuild(id) {
-    await GuildModel.create({ id });
-    return this.getGuild(id)
+  async updateGuild(guildData) {
+    this.cache.set(guildData.id, guildData) 
+    await GuildModel.findOneAndUpdate({ id: guildData.id }, guildData, { upsert: true }).lean()
+    return this.getGuild(guildData.id)
   }
 
-  updateGuild(id) {
+  async getPrefix(id) {
+    const data = await this.getGuild(id);
+    return data.prefix
+  }
 
+  async getWeeb(id) {
+    const data = await this.getGuild(id);
+    return data.weeb
+  }
+
+  async getStinky(id) {
+    const data = await this.getGuild(id);
+    return data.stinky
+  }
+
+  async getMuteRole(id) {
+    const data = await this.getGuild(id);
+    return data.mute_role
+  }
+
+  async setPrefix(id, prefix) {
+    const data = await this.getGuild(id);
+    data.prefix = prefix;
+    return this.updateGuild(data);
+  }
+
+  async setWeeb(id, weeb) {
+    const data = await this.getGuild(id);
+    data.weeb = weeb;
+    return this.updateGuild(data);
+  }
+
+  async setStinky(id, stinky) {
+    const data = await this.getGuild(id);
+    data.stinky = stinky;
+    return this.updateGuild(data);
+  }
+
+  async setMuteRole(id, mute_role) {
+    const data = await this.getGuild(id);
+    data.mute_role = mute_role;
+    return this.updateGuild(data);
   }
 }

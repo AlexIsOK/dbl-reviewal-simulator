@@ -13,7 +13,7 @@ module.exports = {
     permissions: ['files'],
     cooldown: 1000 * 60 * 45,
     exec: async (ctx) => {
-      const guildPrefix = '@';
+      const guildPrefix = await Database.GuildDB.getPrefix(ctx.guild.id);
 
       const cmd = ctx.args[0];
       const url = getAvatar(ctx.message.author);
@@ -23,7 +23,7 @@ module.exports = {
         if (command) {
           await ctx.embed
             .author(ctx.message.author.username + ' | ' + ctx.command.name, url)
-            .description(`\`Command\`: ${command.command}\n\`Usage\`: ${guildPrefix}${command.usage}\n${command.aliases ? `\`Aliases\`: ${command.aliases.join(', ')}\n` : ''}${command.permissions ? '\`Permissions:\` ' + command.permissions.join(', ') + '\n' : ''}\`Description\`: ${command.description}`)
+            .description(`\`Command\`: ${command.command}\n\`Usage\`: ${guildPrefix}${command.usage}\n${command.aliases?.length > 0 ? `\`Aliases\`: ${command.aliases.join(', ')}\n` : ''}${command.permissions?.length > 0 ? '\`Permissions\`: ' + command.permissions.join(', ') + '\n' : ''}\`Description\`: ${command.description}`)
             .footer('Developed by MILLION#1321')
             .color(PURPLE)
             .timestamp()
@@ -79,8 +79,9 @@ module.exports = {
     usage: 'servers',
     description: 'get a list of all of the servers',
     category: 'misc',
+    permissions: ['administrator'],
     exec: async (ctx) => {
-      throw new Error('Sorry, that\'s not allowed')
+      throw new NonFatalError(getLang('CMD_SERVERS'))
     }
   }
 }

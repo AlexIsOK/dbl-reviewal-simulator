@@ -6,6 +6,7 @@
   "OWNER_COMMAND": "You can't run this command.",
   "NO_PERMS": "You do not have permissions to run this command.\nRequired Perms: {0}",
   "NO_BOT_PERMS": "I do not have permissions to run this command.\nRequired Perms: {0}",
+  "NEED_SETUP": "Please configure the bot before running any commands by running {0}setup",
 
   "CMD_GAY_SELF": "You are {0}% gay, <@{1}>",
   "CMD_GAY_USER": "<@{1}> is {0}% gay",
@@ -24,8 +25,8 @@
   "CMD_SHUTDOWN": "no, lol",
   "CMD_EXTREME": "bad",
   "CMD_SERVERS": "Sorry, that's not allowed",
-
   "CMD_PURGE":"Successfully deleted {0} message{1}",
+  
   "CMD_KICK_NO_MEMBER": "I couldn't find a member to kick",
   "CMD_KICK_NO_YOU": "You can't kick this member",
   "CMD_KICK_NO_ME": "I can't kick this member",
@@ -38,5 +39,18 @@
 
   "CMD_NICK_NO_MEMBER": "I couldn't find a member to change their name",
   "CMD_NICK_SUCCESS_RESET": "<@{0}>'s nickname was reset",
-  "CMD_NICK_SUCCESS_CHANGED": "<@{0}>'s nickname was set to `{1}`"
+  "CMD_NICK_SUCCESS_CHANGED": "<@{0}>'s nickname was set to `{1}`",
+
+  "CMD_SETUP_NO_TYPE": "You must include a type to configure.\nValid types: {0}",
+
+  "CMD_SETUP_WEEB_NONE": "I couldn't find the weeb, try mentioning them",
+  "CMD_SETUP_WEEB_SET": "<@{0}> is now this server's weeb",
+
+  "CMD_SETUP_STINKY_NONE": "I couldn't find the stink, try mentioning them",
+  "CMD_SETUP_STINKY_SET": "Oh god, what is that smell. It must be <@{0}>",
+
+  "CMD_SETUP_PREFIX": "This feature is not out yet.",
+
+  "CMD_SETUP_MUTEROLE_NONE": "I couldn't find the role, try mentioning it.",
+  "CMD_SETUP_MUTEROLE_SET": "<@&{0}> will now be given to muted users"
 }

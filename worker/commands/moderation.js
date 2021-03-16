@@ -13,6 +13,7 @@ module.exports = {
     aliases: ['clear', 'c'],
     permissions: ['manageServer'],
     botPermissions: ['manageMessages'],
+    category: 'moderation',
     exec: async (ctx) => {
       const messages = (await ctx.worker.api.channels.getMessages(ctx.channel.id)).filter(e => (Date.now() - new Date(e.timestamp).getTime()) < 1000 * 60 * 60 * 24 * 14).map(m => m.id).filter(e => e)
 
@@ -34,11 +35,12 @@ module.exports = {
     aliases: ['b'],
     permissions: ['banMembers'],
     botPermissions: ['banMembers'],
+    category: 'moderation',
     exec: async (ctx) => {
       const ID = (ctx.args[0] || '').replace(/[<@!>]/g, '')
       const member = ctx.worker.members.get(ctx.guild.id).get(ID) || await ctx.worker.api.members.get(ctx.guild.id, ID).catch(e => null);
 
-      if (!member) throw new Error(getLang('CMD_BAN_NO_MEMBER'))
+      if (!member) throw new NonFatalError(getLang('CMD_BAN_NO_MEMBER'))
 
       const guildRoles = ctx.worker.guildRoles.get(ctx.guild.id).array();
 
@@ -46,8 +48,8 @@ module.exports = {
       const memberRole = guildRoles.filter(r => member.roles.includes(r.id)).map(r => r.position).reduce((a, r) => r > a ? r : a, 0)
       const myRole = guildRoles.filter(r => ctx.worker.members.get(ctx.guild.id).get(ctx.worker.user.id).roles.includes(r.id)).map(r => r.position).reduce((a, r) => r > a ? r : a, 0)
 
-      if (memberRole >= userRole) throw new Error(getLang('CMD_BAN_NO_YOU'))
-      if (myRole <= memberRole) throw new Error(getLang('CMD_BAN_NO_ME'))
+      if (memberRole >= userRole) throw new NonFatalError(getLang('CMD_BAN_NO_YOU'))
+      if (myRole <= memberRole) throw new NonFatalError(getLang('CMD_BAN_NO_ME'))
 
       await ctx.worker.api.members.ban(ctx.guild.id, member.user.id);
 
@@ -65,11 +67,12 @@ module.exports = {
     aliases: ['k'],
     permissions: ['kickMembers'],
     botPermissions: ['kickMembers'],
+    category: 'moderation',
     exec: async (ctx) => {
       const ID = (ctx.args[0] || '').replace(/[<@!>]/g, '')
       const member = ctx.worker.members.get(ctx.guild.id).get(ID) || await ctx.worker.api.members.get(ctx.guild.id, ID).catch(e => null);
 
-      if (!member) throw new Error(getLang('CMD_KICK_NO_MEMBER'))
+      if (!member) throw new NonFatalError(getLang('CMD_KICK_NO_MEMBER'))
 
       const guildRoles = ctx.worker.guildRoles.get(ctx.guild.id).array();
 
@@ -77,8 +80,8 @@ module.exports = {
       const memberRole = guildRoles.filter(r => member.roles.includes(r.id)).map(r => r.position).reduce((a, r) => r > a ? r : a, 0)
       const myRole = guildRoles.filter(r => ctx.worker.members.get(ctx.guild.id).get(ctx.worker.user.id).roles.includes(r.id)).map(r => r.position).reduce((a, r) => r > a ? r : a, 0)
 
-      if (memberRole >= userRole) throw new Error(getLang('CMD_KICK_NO_YOU'))
-      if (myRole <= memberRole) throw new Error(getLang('CMD_KICK_NO_YOU'))
+      if (memberRole >= userRole) throw new NonFatalError(getLang('CMD_KICK_NO_YOU'))
+      if (myRole <= memberRole) throw new NonFatalError(getLang('CMD_KICK_NO_YOU'))
 
       await ctx.worker.api.members.kick(ctx.guild.id, member.user.id);
 
@@ -95,11 +98,12 @@ module.exports = {
     description: 'Set a member\'s nickname',
     permissions: ['manageMembers'],
     botPermissions: ['manageMembers'],
+    category: 'moderation',
     exec: async (ctx) => {
       const ID = (ctx.args[0] || '').replace(/[<@!>]/g, '')
       const member = ctx.worker.members.get(ctx.guild.id).get(ID) || await ctx.worker.api.members.get(ctx.guild.id, ID).catch(e => null);
 
-      if (!member) throw new Error(getLang('CMD_NICK_NO_MEMBER'))
+      if (!member) throw new NonFatalError(getLang('CMD_NICK_NO_MEMBER'))
 
       const name = ctx.args.splice(1).join(' ');
       if (!name) {
