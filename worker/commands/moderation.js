@@ -1,5 +1,5 @@
 const { CommandOptions } = require("discord-rose/dist/typings/lib");
-const { NonFatalError, getLang, getAvatar } = require("../../utils");
+const { NonFatalError, getLang, getAvatar, getLanguages } = require("../../utils");
 
 /**
  * Commands export
@@ -123,4 +123,18 @@ module.exports = {
       return;
     }
   },
+
+  lang: {
+    command: 'lang',
+    usage: 'lang <lang>',
+    description: 'Get a list of all supported languages',
+    permissions: ['manageMessages'],
+    category: 'moderation',
+    exec: async (ctx) => {
+      await ctx.embed
+        .title(getLang('CMD_LANG', getLanguages().map(lang => lang.name).join(', ')))
+        .color(GREEN)
+        .send()
+    }
+  }
 }

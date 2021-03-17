@@ -55,7 +55,7 @@ function getAvatar(user, type, size) {
  * Get the lang response
  */
 function getLang(type, ...args) {
-  const langs = [require('./langs/en-us.json')];
+  const langs = getLanguages()
   const lang = langs[Math.floor(Math.random() * langs.length)]
   if (!lang[type]) throw new Error(`Language Error: "${type}" not set for ${lang.name}`)
   return formatString(lang[type], ...args)
@@ -80,4 +80,15 @@ function wait(time) {
   return new Promise((r) => setTimeout(() => r(), time))
 }
 
-module.exports = { formatTime, NonFatalError, getAvatar, getLang, wait }
+/**
+ * Get all supported languages
+ */
+function getLanguages() {
+  return [
+    require('./langs/en-us.json'),
+    require('./langs/undefined.json'),
+  ];
+}
+
+
+module.exports = { formatTime, NonFatalError, getAvatar, getLang, wait, getLanguages }

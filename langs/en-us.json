@@ -52,5 +52,7 @@
   "CMD_SETUP_PREFIX": "This feature is not out yet.",
 
   "CMD_SETUP_MUTEROLE_NONE": "I couldn't find the role, try mentioning it.",
-  "CMD_SETUP_MUTEROLE_SET": "<@&{0}> will now be given to muted users"
+  "CMD_SETUP_MUTEROLE_SET": "<@&{0}> will now be given to muted users",
+
+  "CMD_LANG": "Currently supported languages: {0}"
 }
